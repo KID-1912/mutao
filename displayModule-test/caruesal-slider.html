@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+	<head>
+		<meta charset="utf-8"/>
+		<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+		<meta name="keywords" content=""/>
+		<meta name="description" content=""/>
+		<link rel="stylesheet" href="../css/base.css"/>
+		<link rel="stylesheet" href="../css/common.css"/>
+		<style>
+			.slider{
+				position: relative;
+				width: 728px;
+				height: 504px;
+				overflow: hidden;
+			}
+			.slider-container{
+				width: 100%;
+				height: 100%;
+			}
+			.slider-item{
+			}
+			.slider-indicator-wrap{
+				position: absolute;
+				bottom:24px;
+				left:50%;
+				margin-left: -40px;
+			}
+			.slider-indicator{
+				width: 8px;
+				height: 8px;
+				margin-right: 10px;
+				border:1px solid #e4e8eb;
+				border-radius: 50%;
+				background-color: #313a43;
+				cursor: pointer;
+			}
+			.slider-indicator-active{
+				border-color:#898f96;
+				background-color: #f7f8f9;
+			}
+			.slider-control{
+				width: 28px;
+				height: 62px;
+				display: none;
+				position: absolute;
+				top:50%;
+				margin-top:-31px;
+				color:#fff;
+				font-family: simsun;
+				font-weight: bold;
+				line-height: 62px;
+				text-align:center;
+				background-color: #000;
+				opacity: 0.6;
+				filter: alpha(opacity=60);
+			}
+			.slider-control-left{
+				left:0;
+			}
+			.slider-control-right{
+				right:0;
+			}
+			.slider-fade .slider-item{
+				display: none;
+				position: absolute;
+				top: 0;
+				left: 0;
+			}
+			.slider-slide .slider-item{
+				position:absolute;
+				left:100%;
+			}
+			/*功能样式*/
+			.slider-slide2 .slider-container{
+				position: absolute;
+			}
+			.slider-slide2 .slider-item{
+				float: left;
+			}
+		</style>
+		<script src=""></script>
+		<title>carousal</title>
+	</head>
+	<body>
+		<div id="focus-slider" class="slider">
+			<div class="slider-container">
+				<div class="slider-item"><a href="#"><img src="../images/loading-slider.gif" load-src="../uploads/focus-slider/1.png" alt=""></a></div>
+				<div class="slider-item"><a href="#"><img src="../images/loading-slider.gif" load-src="../uploads/focus-slider/2.png" alt=""></a></div>
+				<div class="slider-item"><a href="#"><img src="../images/loading-slider.gif" load-src="../uploads/focus-slider/3.png" alt=""></a></div>
+				<div class="slider-item"><a href="#"><img src="../images/loading-slider.gif" load-src="../uploads/focus-slider/4.png" alt=""></a></div>
+			</div>
+			<ol class="slider-indicator-wrap text-hidden clearfix">
+				<li class="slider-indicator fl">1</li>
+				<li class="slider-indicator fl">2</li>
+				<li class="slider-indicator fl">3</li>
+				<li class="slider-indicator fl">4</li>
+			</ol>
+			<a href="javascript:;" class="slider-control slider-control-left">&lt</a>
+			<a href="javascript:;" class="slider-control slider-control-right">&gt</a>
+		</div>
+	</body>
+	<script src="../js/jquery-1.11.3.min.js"></script>
+	<script src="../js/compatible.js"></script>
+	<script src="../js/module.js"></script>
+	<script src="../js/move.js"></script>
+	<script src="../js/slider.js"></script>
+
+	<script>
+		var $focusSlider = $("#focus-slider");
+		var $sliderContainer = $(".slider-container");
+		var $sliderItems = $(".slider-item");
+
+		$focusSlider.items = {};
+		$focusSlider.loadedItemNum = 0;
+		$focusSlider.totalItemNum = $focusSlider.find("img").length;
+		//发布按需加载
+		$focusSlider.on("slider-show",$focusSlider.loadItem = function(e,index,elem) {
+			if ($focusSlider.items[index] !== "loaded"){
+				$focusSlider.trigger("slider-loadItem",[index,elem])
+			}
+		});
+		$focusSlider.on("slider-loadItem",function(e,index,$ele){
+			var $img = $ele.find("img");
+			loadImg($img.attr("load-src"),function(url){
+				$img.attr("src",url);
+				$focusSlider.items[index] = "loaded";
+            	$focusSlider.loadedItemNum++;
+				if($focusSlider.loadedItemNum === $focusSlider.totalItemNum){
+					$focusSlider.off('slider-show', $focusSlider.loadItem);
+				};
+			},function(){
+				$img.attr("src","../images/placeholder.png");
+			})
+		});
+		function loadImg(url,callback,errorCallback){//预加载图片
+			var img = $(new Image());
+			img.on({
+				load : function(){
+					if(typeof callback === "function") callback(url);
+				},
+				error : function(){
+					if(typeof errorCallback === "function") errorCallback();
+				}
+			});
+			img.attr("src",url);
+		}
+		$focusSlider.slider({
+			css:true,
+			js:false,
+			animation:"fade",
+			activeIndex:4,
+			interval:0,
+		});
+
+	</script>
+</html>

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+	<head>
+		<meta charset="utf-8"/>
+		<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+		<meta name="keywords" content=""/>
+		<meta name="description" content=""/>
+		<link rel="stylesheet" href="../css/base.css">
+		<title>displayModule</title>
+		<style>
+			.test{
+				width: 700px;
+				margin:100px auto;
+			}
+			.test input{
+				width: 50%;
+				height: 35px;
+			}
+			#box{
+				display: none;
+				background-color: red;
+			}
+			.inner{
+				height: 400px;
+				width: 700px;
+			}
+			.transition{
+				-o-transition:all 0.5s;
+				-ms-transition:all 0.5s;
+				-moz-transition:all 0.5s;
+				-webkit-transition:all 0.5s;
+				transition:all 0.5s;
+			}
+			.fadeOut{
+				opacity: 0!important;
+			}
+			.slideDown{
+				height: 0!important;
+				padding-top: 0!important;
+				padding-bottom: 0!important;
+			}
+			.slideRight{
+				width: 0!important;
+				padding-right: 0!important;
+				padding-left: 0!important;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="test">
+			<input class="show" type="button" value="显示"/><input class="hide" type="button" value="隐藏"/>
+			<div id="box" class="">
+				<div class="inner"></div>
+			</div>
+			wenzizzzzz
+		</div>
+	</body>
+	<script src="../js/jquery-1.11.3.min.js"></script>
+	<script src="../js/compatible.js"></script>
+	<script src="../js/module.js"></script>
+	<script>
+		var $box = $("#box");
+		$box.showHide({css:false,animation:"fadeSlideUpdown"})
+		// var boxShowHide = window.module.showHide($box,);
+		// 为元素添加Display模块功能
+		$(".show").on("click",function(){
+			$box.showHide("show");
+		});
+		$(".hide").on("click",function(){
+			$box.showHide("hide");
+		});
+
+		// 事件绑定
+		$box.on({
+			show : function(e){
+				// $box.html("<p>显示完成前功能代码</p>");
+				// console.log(e.type);
+			},
+			shown : function(e){
+				// setTimeout(function(){
+				// 	$box.html($box.html()+"<p>显示完成后功能代码</p>");
+				// },50);
+				console.log(e.type);
+			}
+		});
+		// $box.on({//其他订阅
+		// 	show : function(e){
+		// 		$box.css("background-color","yellow");
+		// 	},
+		// 	shown : function(e){
+		// 		setTimeout(function(){
+		// 			$box.css("background-color","red");
+		// 		},500);
+		// 	}
+		// });		
+		$box.on({
+			hide : function(e){
+				console.log(e.type);
+			},
+			hiden : function(e){
+				console.log(e.type);
+			}
+		});
+	</script>
+</html>
