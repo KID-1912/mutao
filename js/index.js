@@ -188,14 +188,14 @@ $(function(){
 		js:false,
 		animation:"fade",
 		activeIndex:1,
-		interval:0,
+		interval:5000,
 	});
 	slider.$todaysSlider.slider({
 		css:true,
 		js:false,
 		animation:"slide",
 		activeIndex:2,
-		interval:0,
+		interval:35000,
 	});
 
 // tab按需加载与组件化
