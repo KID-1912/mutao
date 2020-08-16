@@ -108,8 +108,8 @@ Search.prototype = {
     	return this;
     },
     init : function(){
-    	this.$layer.showHide(this.options);//初始化显示隐藏
     	if(this.options.autocomplete) {//是否自动完成提示
+    		this.$layer.showHide(this.options);//初始化显示隐藏
     		this.autocomplete();
     	};
     	this.submit();//表单提交验证

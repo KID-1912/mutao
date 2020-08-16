@@ -26,7 +26,7 @@ Dropdown.prototype = {
 		this.layer.showHide(this.options);
 		var _this = this; 
 		// 转发消息
-		this.layer.on("shown",function(e){//绑定模块的四个事件
+		this.layer.on("show",function(e){//绑定模块的四个事件
 			_this.$ele.trigger("lazyLoad");//绑定模块事件触发时对应触发的元素事件
 			e.stopPropagation();
 		})

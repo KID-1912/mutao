@@ -95,7 +95,7 @@
 
 	var move = function($ele,options){
 		var mode = null;
-		if(options.css){
+		if(options.css && transition.isSupport){
 			mode = new Css3($ele);
 		}else if(options.js){
 			mode = new Js($ele);

@@ -135,7 +135,6 @@
                 setTimeout(function() {
                     $ele.data("status", "shown").trigger("shown");
                 }, 50)
-
             })
         },
         _hide: function($ele, mode) {
