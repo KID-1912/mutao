@@ -1,4 +1,5 @@
 # 组件
+github Page地址: https://kid-1912.github.io/mutao/
 ## 功能组件
 #### 1.showHide.js
 ##### 组件描述
